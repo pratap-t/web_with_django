@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %} Our Institute{% endblock %}
+{% block content %}
+<h1> Institute Student Portal</h1>
+<h2>Student List</h2>
+{% for student in students %}
+    <h2>
+        <a href="{{student.get_absolute_url}}">
+            {{student.first_name}} {{student.last_name}}
+        </a>
+    </h2>
+    <p class="date">Enrollment Number {{student.student_id}}</p>
+    {% endfor %}
+    {% endblock %}
