@@ -20,7 +20,21 @@ class StudentDetail (models.Model):
                            null=True)
     
     class Meta:
+        ordering = ['-first_name', 'last_name']
         verbose_name_plural = 'Student Details'
 
     def get_absolute_url(self):
         return reverse('student:student_details', args=[self.student_id])
+    
+class Subject(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+class Teacher(models.Model):
+    name = models.CharField(max_length=50)
+    subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+
+class Student(models.Model):
+    subject = models.ManyToManyField('Subject')
+    name = models.CharField(max_length=50)
+    student_id = models.OneToOneField('StudentDetail', on_delete=models.CASCADE)
+    teacher = models.ManyToManyField('Teacher')
